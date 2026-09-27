@@ -13,3 +13,5 @@ MEMPERBARUI
    Tidak perlu install ulang.
 
 PENTING: jangan ganti nama proyek / link.
+
+CATATAN: upload juga file gambar hero.webp dan semua ic-*.webp (ada di folder utama, bukan subfolder).
