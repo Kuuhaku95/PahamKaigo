@@ -1,17 +1,15 @@
-CARA MEMASANG & MEMPERBARUI PAHAMKAIGO
+CARA UPDATE APLIKASI DI GITHUB (paling mudah)
 
-PASANG PERTAMA KALI (Cloudflare Pages, gratis)
-1. Daftar di https://dash.cloudflare.com
-2. Workers & Pages > Create > Pages > Upload assets
-3. Nama proyek: pahamkaigo  → seret SELURUH isi folder ini
-4. Link: https://pahamkaigo.pages.dev → buka di HP → "Install aplikasi" / "Tambahkan ke layar utama"
+1. Buka repo PahamKaigo di github.com.
+2. Klik "Add file" → "Upload files".
+3. Buka folder pahamkaigo-app di komputer/HP, pilih SEMUA isinya, lalu seret ke halaman upload.
+   (File yang sama akan otomatis ditimpa, tidak perlu hapus dulu.)
+4. Klik "Commit changes". Tunggu 1–2 menit.
+5. Buka aplikasi di HP — versi baru otomatis terpasang.
 
-MEMPERBARUI
-1. Buka proyek pahamkaigo > Create new deployment
-2. Seret SELURUH isi folder versi baru (termasuk sw.js dan version.json)
-3. Pengguna otomatis melihat banner "Ada pembaruan materi" saat membuka aplikasi.
-   Tidak perlu install ulang.
-
-PENTING: jangan ganti nama proyek / link.
-
-CATATAN: upload juga file gambar hero.webp dan semua ic-*.webp (ada di folder utama, bukan subfolder).
+Isi folder:
+- index.html   : tampilan aplikasi (kecil, cepat dibuka)
+- materi.js    : semua materi & kosakata bab
+- data.js      : bank kotoba, rangkuman, kakomon
+- fig-*, mk-*, mat-*, ic-*, hero : gambar (dimuat hanya saat dibuka)
+- sw.js, version.json, manifest.json, icon-* : pengaturan aplikasi
