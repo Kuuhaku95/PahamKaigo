@@ -1,0 +1,28 @@
+name: Build APK
+on:
+  workflow_dispatch:
+  push:
+    paths: ['android/**', '.github/workflows/build-apk.yml']
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: '17' }
+      - uses: gradle/actions/setup-gradle@v4
+        with: { gradle-version: '8.9' }
+      - name: Ikon aplikasi
+        run: |
+          mkdir -p android/app/src/main/res/mipmap-xxxhdpi
+          cp icon-192.png android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
+      - name: Build
+        run: gradle -p android assembleRelease --no-daemon
+      - name: Rilis
+        env: { GH_TOKEN: '${{ github.token }}' }
+        run: |
+          cp android/app/build/outputs/apk/release/app-release.apk PahamKaigo.apk
+          gh release delete apk -y --cleanup-tag || true
+          gh release create apk PahamKaigo.apk --title "PahamKaigo (Android)" --notes "Aplikasi Android PahamKaigo. Isi aplikasi otomatis terbarui dari internet."

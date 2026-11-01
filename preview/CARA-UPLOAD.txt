@@ -1,0 +1,15 @@
+CARA UPDATE APLIKASI DI GITHUB (paling mudah)
+
+1. Buka repo PahamKaigo di github.com.
+2. Klik "Add file" → "Upload files".
+3. Buka folder pahamkaigo-app di komputer/HP, pilih SEMUA isinya, lalu seret ke halaman upload.
+   (File yang sama akan otomatis ditimpa, tidak perlu hapus dulu.)
+4. Klik "Commit changes". Tunggu 1–2 menit.
+5. Buka aplikasi di HP — versi baru otomatis terpasang.
+
+Isi folder:
+- index.html   : tampilan aplikasi (kecil, cepat dibuka)
+- materi.js    : semua materi & kosakata bab
+- data.js      : bank kotoba, rangkuman, kakomon
+- fig-*, mk-*, mat-*, ic-*, hero : gambar (dimuat hanya saat dibuka)
+- sw.js, version.json, manifest.json, icon-* : pengaturan aplikasi
