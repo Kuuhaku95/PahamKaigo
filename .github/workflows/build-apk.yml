@@ -39,7 +39,9 @@ jobs:
           mkdir -p android-admin/app/src/main/res/mipmap-xxxhdpi
           cp icon-192.png android-admin/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
       - name: Build
-        run: gradle -p android-admin assembleRelease --no-daemon
+        run: |
+          set -o pipefail
+          gradle -p android-admin assembleRelease --no-daemon 2>&1 | tee /tmp/b.log || { grep -iE "error|wrong|cause|failed|\.java:" /tmp/b.log | head -25 | while IFS= read -r l; do echo "::error::$l"; done; exit 1; }
       - name: Rilis
         env: { GH_TOKEN: '${{ github.token }}' }
         run: |
