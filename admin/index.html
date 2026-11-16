@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="id"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#22584F">
+<title>PahamKaigo Admin</title>
+<link rel="manifest" href="manifest.json"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{--bg:#F4F6FA;--card:#fff;--line:#E3E7EE;--ink:#1B2430;--mute:#6B7480;--teal:#2F7F72;--teal2:#22584F;--red:#B44A2C;--redbg:#FBEAE4;--amber:#9A6A12;--amberbg:#FFF4DC;--blue:#3F4FC9}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Noto Sans JP',sans-serif;-webkit-tap-highlight-color:transparent}
+button{font:inherit;cursor:pointer}input,textarea{font:inherit}
+.wrap{max-width:560px;margin:0 auto;min-height:100dvh;padding-bottom:calc(env(safe-area-inset-bottom) + 24px)}
+.top{position:sticky;top:0;z-index:5;background:linear-gradient(125deg,#1C5F57,#2F8F82 60%,#6DBFAA);color:#fff;padding:calc(env(safe-area-inset-top) + 14px) 18px 16px;border-radius:0 0 24px 24px;box-shadow:0 10px 24px -16px rgba(28,95,87,.9)}
+.top h1{margin:0;font-size:20px;font-weight:800;display:flex;align-items:center;gap:10px}.top h1 img{width:34px;height:34px;border-radius:10px;background:#fff}
+.top .sub{font-size:12.5px;opacity:.9;margin-top:2px}
+.top .row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.iconbtn{border:none;background:rgba(255,255,255,.18);color:#fff;border-radius:12px;padding:8px 11px;font-size:13px;font-weight:700}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+.stat{background:rgba(255,255,255,.16);border-radius:14px;padding:8px 6px;text-align:center}.stat b{display:block;font-size:20px}.stat span{font-size:10.5px;font-weight:700;opacity:.92}
+.pad{padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.search{display:flex;gap:8px}.search input{flex:1;border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:15px;background:#fff;outline:none}
+.chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.chip{flex:none;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:700}.chip.on{background:var(--teal);border-color:var(--teal);color:#fff}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:13px 14px;display:flex;gap:12px;align-items:center;text-align:left;width:100%;color:var(--ink)}
+.av{flex:none;width:44px;height:44px;border-radius:22px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:18px}
+.nm{font-weight:800;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.em{font-size:12.5px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.badge{flex:none;font-size:11px;font-weight:800;border-radius:999px;padding:4px 9px}
+.b-ok{background:#E3F2EE;color:var(--teal2)}.b-bl{background:var(--redbg);color:var(--red)}.b-ad{background:#E8EAFB;color:var(--blue)}.b-on{background:#E3F2EE;color:#1F7A62}
+.meta{font-size:11.5px;color:var(--mute);margin-top:3px;display:flex;gap:8px;flex-wrap:wrap}
+.empty{text-align:center;color:var(--mute);padding:40px 10px;font-size:14px}
+.sheetbg{position:fixed;inset:0;background:rgba(15,20,25,.45);z-index:20}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:21;max-width:560px;margin:0 auto;background:#fff;border-radius:26px 26px 0 0;max-height:92dvh;overflow-y:auto;padding:10px 18px calc(env(safe-area-inset-bottom) + 20px);box-shadow:0 -10px 30px rgba(0,0,0,.15)}
+.grab{width:42px;height:5px;border-radius:3px;background:#D9DDE3;margin:4px auto 12px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:14px;background:#F7F8FA;border-radius:16px;padding:14px}.kv span{color:var(--mute)}.kv b{word-break:break-all}
+.pw{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.pw .btn{white-space:nowrap}.pw code{white-space:nowrap;word-break:normal;font-size:15px;background:#fff;border:1px dashed var(--line);border-radius:8px;padding:3px 8px}
+.btn{border:none;border-radius:14px;padding:13px;font-size:14.5px;font-weight:800}
+.b1{background:var(--teal);color:#fff}.b2{background:#fff;border:1px solid var(--line);color:var(--ink)}.b3{background:var(--redbg);color:var(--red)}.b4{background:var(--amberbg);color:var(--amber)}.b5{background:#25D366;color:#fff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.field{display:flex;flex-direction:column;gap:6px;font-size:12.5px;font-weight:700;color:#4A5360}.field input,.field textarea{border:1px solid var(--line);border-radius:12px;padding:12px;font-size:15px;outline:none;background:#FAFBFC;color:var(--ink)}
+.login{padding:calc(env(safe-area-inset-top) + 40px) 22px 30px;display:flex;flex-direction:column;gap:14px}
+.login .logo{display:flex;align-items:center;gap:12px}.login .logo img{width:56px;height:56px;border-radius:16px;box-shadow:0 8px 20px -10px rgba(0,0,0,.3)}
+.box{background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.err{background:var(--redbg);color:var(--red);border-radius:12px;padding:10px 12px;font-size:13px;font-weight:700;line-height:1.5}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom) + 20px);z-index:40;background:#1B2430;color:#fff;border-radius:14px;padding:11px 16px;font-size:13px;font-weight:700;max-width:90%}
+.dlg{position:fixed;left:20px;right:20px;top:50%;transform:translateY(-50%);z-index:31;max-width:440px;margin:0 auto;background:#fff;border-radius:22px;padding:20px;display:flex;flex-direction:column;gap:10px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.dlgbg{position:fixed;inset:0;background:rgba(15,20,25,.5);z-index:30}
+.hint{font-size:12.5px;color:var(--mute);line-height:1.55}
+</style></head>
+<body><div class="wrap" id="app"></div><div id="ov"></div>
+<script>
+const SB_URL='https://xlwdlkvptijrgdkgmhen.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhsd2Rsa3ZwdGlqcmdka2dtaGVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ4MzU1NzMsImV4cCI6MjExMDQxMTU3M30.Kx_Jm9NEaGFGOA0meDGAkDO_MNYFC9nM0HGX8LISnH8';
+const KEY='pahamkaigo.admin.auth';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const S={users:[],pw:{},filter:'semua',q:'',sel:null,loading:false,showPw:{}};
+const A={get(){try{return JSON.parse(localStorage.getItem(KEY))}catch(e){return null}},set(v){try{v?localStorage.setItem(KEY,JSON.stringify(v)):localStorage.removeItem(KEY)}catch(e){}},
+ async req(path,opt={},tok){const h=Object.assign({apikey:SB_KEY,'Content-Type':'application/json',Authorization:'Bearer '+(tok||SB_KEY)},opt.headers||{});const r=await fetch(SB_URL+path,Object.assign({cache:'no-store'},opt,{headers:h}));let j=null;try{j=await r.json()}catch(e){}if(!r.ok){const e=new Error((j&&(j.error_description||j.msg||j.message||j.error))||('HTTP '+r.status));e.status=r.status;throw e}return j},
+ save(j){const v={at:j.access_token,rt:j.refresh_token,exp:Date.now()+(j.expires_in||3600)*1000,uid:j.user&&j.user.id,email:j.user&&j.user.email};this.set(v);return v},
+ async login(e,p){return this.save(await this.req('/auth/v1/token?grant_type=password',{method:'POST',body:JSON.stringify({email:e,password:p})}))},
+ async tok(){let s=this.get();if(!s)throw Object.assign(new Error('Belum masuk'),{status:401});if(Date.now()>s.exp-60000){s=this.save(await this.req('/auth/v1/token?grant_type=refresh_token',{method:'POST',body:JSON.stringify({refresh_token:s.rt})}))}return s.at},
+ async get2(path){return this.req(path,{method:'GET'},await this.tok())},
+ async rpc(n,a){return this.req('/rest/v1/rpc/'+n,{method:'POST',body:JSON.stringify(a||{})},await this.tok())},
+ async fn(n,b){return this.req('/functions/v1/'+n,{method:'POST',body:JSON.stringify(b||{})},await this.tok())},
+ async logout(){const s=this.get();this.set(null);if(s){try{await this.req('/auth/v1/logout',{method:'POST'},s.at)}catch(e){}}}};
+function toast(t){const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2400)}
+const fmtD=d=>{if(!d)return '-';const x=new Date(d);return isNaN(x)?d:x.toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'})};
+const fmtDT=d=>{if(!d)return '-';const x=new Date(d);return isNaN(x)?d:x.toLocaleString('id-ID',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})};
+const ago=d=>{if(!d)return 'belum pernah';const s=(Date.now()-new Date(d))/1000;if(s<120)return 'baru saja';if(s<3600)return Math.floor(s/60)+' menit lalu';if(s<86400)return Math.floor(s/3600)+' jam lalu';return Math.floor(s/86400)+' hari lalu'};
+const age=b=>{if(!b)return '';const d=new Date(b+'T00:00:00');let a=new Date().getFullYear()-d.getFullYear();const m=new Date().getMonth()-d.getMonth();if(m<0||(m===0&&new Date().getDate()<d.getDate()))a--;return a+' th'};
+const online=u=>u.last_seen&&(Date.now()-new Date(u.last_seen))<5*60000;
+const colors=['#2F7F72','#3F4FC9','#C4623F','#8A4FC9','#1F7A9C','#B8862F'];
+const avc=id=>colors[(parseInt(String(id).slice(0,6),16)||0)%colors.length];
+const waLink=w=>{let n=String(w||'').replace(/[^0-9]/g,'');if(n.startsWith('0'))n='62'+n.slice(1);return n?'https://wa.me/'+n:''};
+
+// ---------- login / setup ----------
+async function showLogin(msg){
+  let first=false;try{first=!(await A.req('/rest/v1/rpc/has_admin',{method:'POST',body:'{}'}))}catch(e){}
+  $('#app').innerHTML=`<div class="login"><div class="logo"><img src="icon-192.png" alt=""><div><div style="font-size:22px;font-weight:800">PahamKaigo Admin</div><div class="hint">Kelola akun peserta aplikasi PahamKaigo</div></div></div>
+  ${first?`<div class="box"><div style="font-weight:800;font-size:16px">Buat akun admin pertama</div><div class="hint">Belum ada admin. Akun yang dibuat di sini otomatis menjadi admin. Setelah ada admin, formulir ini hilang.</div>
+   <label class="field">Nama lengkap<input id="fn"></label><label class="field">Email<input id="fe" type="email" inputmode="email"></label><label class="field">Nomor WhatsApp<input id="fw" type="tel"></label><label class="field">Tanggal lahir<input id="fb" type="date"></label>
+   <div class="field">Gender<div class="grid2"><button class="btn b2" data-g="Laki-laki">Laki-laki</button><button class="btn b2" data-g="Perempuan">Perempuan</button></div></div>
+   <label class="field">Password<input id="fp" type="password" placeholder="Masukkan password"></label><div id="er"></div><button class="btn b1" id="go">Buat akun admin</button></div>`
+  :`<div class="box"><label class="field">Email admin<input id="le" type="email" inputmode="email" autocomplete="email"></label><label class="field">Password<input id="lp" type="password" autocomplete="current-password"></label><div id="er">${msg?`<div class="err">${esc(msg)}</div>`:''}</div><button class="btn b1" id="go">Masuk</button></div><div class="hint" style="text-align:center">Hanya akun admin yang bisa masuk ke sini.</div>`}</div>`;
+  const er=t=>$('#er').innerHTML=`<div class="err">${esc(t)}</div>`;
+  if(first){let g='';document.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{g=b.dataset.g;document.querySelectorAll('[data-g]').forEach(x=>{x.className='btn '+(x===b?'b1':'b2')})});
+    $('#go').onclick=async()=>{const d={full_name:$('#fn').value.trim(),email:$('#fe').value.trim().toLowerCase(),whatsapp:$('#fw').value.trim(),birth_date:$('#fb').value,gender:g,password:$('#fp').value,first_admin:true};
+      $('#go').disabled=true;$('#go').textContent='Tunggu…';
+      try{await A.req('/functions/v1/daftar',{method:'POST',body:JSON.stringify(d)});await A.login(d.email,d.password);start()}catch(e){er(e.message);$('#go').disabled=false;$('#go').textContent='Buat akun admin'}};
+  }else{const go=async()=>{const e=$('#le').value.trim().toLowerCase(),p=$('#lp').value;if(!e||!p)return er('Isi email dan password.');$('#go').disabled=true;$('#go').textContent='Tunggu…';
+      try{await A.login(e,p);start()}catch(x){er(/invalid/i.test(x.message)?'Email atau password salah.':(/banned/i.test(x.message)?'Akun ini diblokir.':x.message));$('#go').disabled=false;$('#go').textContent='Masuk'}};
+    $('#go').onclick=go;$('#lp').onkeydown=e=>{if(e.key==='Enter')go()}}
+}
+async function start(){
+  if(!A.get())return showLogin();
+  try{const ok=await A.rpc('is_admin');if(!ok){await A.logout();return showLogin('Akun ini bukan admin. Gunakan akun admin.')}}
+  catch(e){if(e.status===400||e.status===401||e.status===403){await A.logout();return showLogin('Sesi berakhir. Silakan masuk lagi.')}}
+  render();load();clearInterval(window._t);window._t=setInterval(()=>{if(!document.hidden)load(true)},60000);
+}
+async function load(quiet){
+  if(!quiet){S.loading=true;render()}
+  try{const [u,p]=await Promise.all([A.get2('/rest/v1/profiles?select=*&order=created_at.desc'),A.get2('/rest/v1/participant_passwords?select=user_id,password_copy,updated_at')]);
+    S.users=u||[];S.pw={};(p||[]).forEach(x=>S.pw[x.user_id]=x);}
+  catch(e){if(e.status===401){await A.logout();return showLogin('Sesi berakhir. Silakan masuk lagi.')}toast('Gagal memuat: '+e.message)}
+  S.loading=false;render();if(S.sel)openUser(S.sel,true);
+}
+function filtered(){const q=S.q.toLowerCase();return S.users.filter(u=>{if(S.filter==='aktif'&&(u.blocked_at||u.role==='admin'))return false;if(S.filter==='blokir'&&!u.blocked_at)return false;if(S.filter==='online'&&!online(u))return false;if(S.filter==='admin'&&u.role!=='admin')return false;
+  if(!q)return true;return [u.full_name,u.email,u.whatsapp].some(x=>String(x||'').toLowerCase().includes(q))})}
+function render(){
+  const us=S.users,peserta=us.filter(u=>u.role!=='admin');
+  const st=[['Peserta',peserta.length],['Online',us.filter(online).length],['Diblokir',us.filter(u=>u.blocked_at).length],['Baru 7 hr',peserta.filter(u=>Date.now()-new Date(u.created_at)<7*864e5).length]];
+  const me=A.get()||{};
+  const list=filtered();
+  const F=[['semua','Semua'],['aktif','Aktif'],['online','Online'],['blokir','Diblokir'],['admin','Admin']];
+  $('#app').innerHTML=`<div class="top"><div class="row"><div><h1><img src="icon-192.png" alt="">PahamKaigo Admin</h1><div class="sub">${esc(me.email||'')}</div></div><div style="display:flex;gap:6px"><button class="iconbtn" id="rf">↻</button><button class="iconbtn" id="lo">Keluar</button></div></div>
+   <div class="stats">${st.map(x=>`<div class="stat"><b>${x[1]}</b><span>${x[0]}</span></div>`).join('')}</div></div>
+   <div class="pad"><div class="search"><input id="q" placeholder="Cari nama, email, atau WhatsApp" value="${esc(S.q)}"></div>
+   <div class="chips">${F.map(f=>`<button class="chip ${S.filter===f[0]?'on':''}" data-f="${f[0]}">${f[1]}</button>`).join('')}</div>
+   ${S.loading&&!us.length?'<div class="empty">Memuat data…</div>':(list.length?list.map(card).join(''):'<div class="empty">Tidak ada akun yang cocok.</div>')}
+   <div class="hint" style="text-align:center;margin-top:6px">${list.length} akun ditampilkan · diperbarui otomatis tiap 1 menit</div></div>`;
+  $('#rf').onclick=()=>load();$('#lo').onclick=()=>confirmBox('Keluar dari admin?','Kamu perlu masuk lagi untuk membuka admin.','Keluar','b3',async()=>{await A.logout();clearInterval(window._t);showLogin()});
+  const q=$('#q');q.oninput=()=>{S.q=q.value;const pos=q.selectionStart;render();const n=$('#q');n.focus();n.setSelectionRange(pos,pos)};
+  document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{S.filter=b.dataset.f;render()});
+  document.querySelectorAll('[data-u]').forEach(b=>b.onclick=()=>openUser(b.dataset.u));
+}
+function card(u){const bl=!!u.blocked_at,ad=u.role==='admin';
+  return `<button class="card" data-u="${u.id}"><div class="av" style="background:${bl?'#B9BEC6':avc(u.id)}">${esc(String(u.full_name||'?').trim().charAt(0).toUpperCase())}</div>
+  <div style="flex:1;min-width:0"><div class="nm">${esc(u.full_name||'(tanpa nama)')}</div><div class="em">${esc(u.email)}</div>
+  <div class="meta"><span>${esc(u.gender||'-')}${u.birth_date?' · '+age(u.birth_date):''}</span><span>Daftar ${fmtD(u.created_at)}</span><span>Aktif ${ago(u.last_seen)}</span></div></div>
+  ${ad?'<span class="badge b-ad">Admin</span>':bl?'<span class="badge b-bl">Diblokir</span>':online(u)?'<span class="badge b-on">● Online</span>':'<span class="badge b-ok">Aktif</span>'}</button>`}
+function closeOv(){$('#ov').innerHTML='';S.sel=null}
+function openUser(id,keep){
+  const u=S.users.find(x=>x.id===id);if(!u){closeOv();return}S.sel=id;const pw=S.pw[id];const bl=!!u.blocked_at,ad=u.role==='admin';const shown=S.showPw[id];
+  const wa=waLink(u.whatsapp);
+  $('#ov').innerHTML=`<div class="sheetbg" id="bg"></div><div class="sheet"><div class="grab"></div>
+   <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><div class="av" style="width:52px;height:52px;border-radius:26px;background:${bl?'#B9BEC6':avc(u.id)}">${esc(String(u.full_name||'?').charAt(0).toUpperCase())}</div>
+   <div style="flex:1;min-width:0"><div class="nm" style="font-size:18px">${esc(u.full_name)}</div><div class="em">${esc(u.email)}</div></div>${ad?'<span class="badge b-ad">Admin</span>':bl?'<span class="badge b-bl">Diblokir</span>':'<span class="badge b-ok">Aktif</span>'}</div>
+   ${bl?`<div class="err" style="margin-bottom:10px">Diblokir ${fmtDT(u.blocked_at)}${u.blocked_reason?' · Alasan: '+esc(u.blocked_reason):''}</div>`:''}
+   <div class="kv"><span>WhatsApp</span><b>${esc(u.whatsapp||'-')}</b><span>Tanggal lahir</span><b>${fmtD(u.birth_date)}${u.birth_date?' ('+age(u.birth_date)+')':''}</b><span>Gender</span><b>${esc(u.gender||'-')}</b>
+   <span>Password</span><b class="pw">${pw?`<code>${shown?esc(pw.password_copy):'••••••••'}</code><button class="btn b2" style="padding:5px 9px;font-size:12px" id="sp">${shown?'Sembunyikan':'Lihat'}</button>${shown?'<button class="btn b2" style="padding:5px 9px;font-size:12px" id="cp">Salin</button>':''}`:'-'}</b>
+   <span>Daftar</span><b>${fmtDT(u.created_at)}</b><span>Login terakhir</span><b>${fmtDT(u.last_login)}</b><span>Terakhir aktif</span><b>${ago(u.last_seen)}</b>
+   <span>HP terdaftar</span><b style="font-weight:600;font-size:12.5px">${esc(u.device_info||'-')}</b></div>
+   <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
+   ${wa?`<a class="btn b5" style="text-align:center;text-decoration:none" href="${wa}" target="_blank" rel="noopener">Chat WhatsApp</a>`:''}
+   ${ad?'<div class="hint">Akun admin tidak bisa diblokir atau dihapus dari sini.</div>':`
+   <div class="grid2"><button class="btn b2" id="rd">Reset HP</button><button class="btn b2" id="rp">Atur ulang password</button></div>
+   ${bl?'<button class="btn b1" id="ub">Pulihkan akun</button>':'<button class="btn b4" id="bk">Blokir akun</button>'}
+   <button class="btn b3" id="dl">Hapus akun permanen</button>`}
+   <button class="btn b2" id="cl">Tutup</button></div>
+   <div class="hint" style="margin-top:10px">Reset HP: peserta bisa login di HP baru (HP lama otomatis keluar saat ia login). Blokir: peserta langsung dikeluarkan dan tidak bisa login. Hapus: akun dan datanya hilang, email bisa dipakai daftar lagi.</div></div>`;
+  $('#bg').onclick=closeOv;$('#cl').onclick=closeOv;
+  if($('#sp'))$('#sp').onclick=()=>{S.showPw[id]=!shown;openUser(id)};
+  if($('#cp'))$('#cp').onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(pw.password_copy).then(()=>toast('Password disalin'),()=>toast('Tidak bisa menyalin'))};
+  if(ad)return;
+  $('#rd').onclick=()=>confirmBox('Reset HP peserta?',`${u.full_name} bisa login di HP lain. HP yang sekarang akan keluar otomatis saat ia login di HP baru.`,'Reset HP','b1',async()=>{await A.rpc('admin_reset_device',{p_user:id});toast('HP direset');load(true)});
+  $('#rp').onclick=()=>inputBox('Atur ulang password',`Password baru untuk ${u.full_name} (minimal 6 karakter).`,'Password baru',false,'Simpan','b1',async v=>{if(v.length<6)throw new Error('Password minimal 6 karakter');await A.fn('admin-kelola-akun',{aksi:'reset_password',user_id:id,password:v});toast('Password diganti');load(true)});
+  if($('#bk'))$('#bk').onclick=()=>inputBox('Blokir akun?',`${u.full_name} akan langsung dikeluarkan dan tidak bisa login sampai dipulihkan.`,'Alasan (opsional)',true,'Blokir','b4',async v=>{await A.fn('admin-kelola-akun',{aksi:'blokir',user_id:id,alasan:v});toast('Akun diblokir');load(true)});
+  if($('#ub'))$('#ub').onclick=()=>confirmBox('Pulihkan akun?',`${u.full_name} bisa login lagi.`,'Pulihkan','b1',async()=>{await A.fn('admin-kelola-akun',{aksi:'pulihkan',user_id:id});toast('Akun dipulihkan');load(true)});
+  $('#dl').onclick=()=>inputBox('Hapus akun permanen?',`Akun ${u.full_name} (${u.email}) akan dihapus dan tidak bisa dikembalikan. Ketik HAPUS untuk melanjutkan.`,'HAPUS',false,'Hapus','b3',async v=>{if(v.trim().toUpperCase()!=='HAPUS')throw new Error('Ketik HAPUS untuk menghapus');await A.fn('admin-kelola-akun',{aksi:'hapus',user_id:id});toast('Akun dihapus');closeOv();load(true)});
+}
+function confirmBox(t,m,ok,cls,fn){const d=document.createElement('div');d.innerHTML=`<div class="dlgbg"></div><div class="dlg"><div style="font-size:17px;font-weight:800">${esc(t)}</div><div class="hint" style="font-size:14px">${esc(m)}</div><div id="de"></div><div class="grid2"><button class="btn b2" data-x>Batal</button><button class="btn ${cls}" data-ok>${esc(ok)}</button></div></div>`;document.body.appendChild(d);
+  d.querySelector('[data-x]').onclick=()=>d.remove();d.querySelector('.dlgbg').onclick=()=>d.remove();
+  d.querySelector('[data-ok]').onclick=async e=>{e.target.disabled=true;try{await fn();d.remove()}catch(x){d.querySelector('#de').innerHTML=`<div class="err">${esc(x.message)}</div>`;e.target.disabled=false}}}
+function inputBox(t,m,ph,area,ok,cls,fn){const d=document.createElement('div');d.innerHTML=`<div class="dlgbg"></div><div class="dlg"><div style="font-size:17px;font-weight:800">${esc(t)}</div><div class="hint" style="font-size:14px">${esc(m)}</div><label class="field">${area?`<textarea rows="3" placeholder="${esc(ph)}"></textarea>`:`<input placeholder="${esc(ph)}">`}</label><div id="de"></div><div class="grid2"><button class="btn b2" data-x>Batal</button><button class="btn ${cls}" data-ok>${esc(ok)}</button></div></div>`;document.body.appendChild(d);
+  const inp=d.querySelector('input,textarea');setTimeout(()=>inp.focus(),50);
+  d.querySelector('[data-x]').onclick=()=>d.remove();d.querySelector('.dlgbg').onclick=()=>d.remove();
+  d.querySelector('[data-ok]').onclick=async e=>{e.target.disabled=true;try{await fn(inp.value);d.remove()}catch(x){d.querySelector('#de').innerHTML=`<div class="err">${esc(x.message)}</div>`;e.target.disabled=false}}}
+// tombol kembali di APK admin
+window.PK_BACK=()=>{const dl=document.querySelector('.dlg');if(dl){dl.parentElement.remove();return 'ok'}if($('#ov').innerHTML){closeOv();return 'ok'}return 'exit'};
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&A.get()&&S.users.length)load(true)});
+start();
+</script></body></html>
