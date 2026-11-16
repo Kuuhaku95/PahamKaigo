@@ -41,7 +41,7 @@ jobs:
       - name: Build
         run: |
           set -o pipefail
-          gradle -p android-admin assembleRelease --no-daemon 2>&1 | tee /tmp/b.log || { grep -iE "error|wrong|cause|failed|\.java:" /tmp/b.log | head -25 | while IFS= read -r l; do echo "::error::$l"; done; exit 1; }
+          gradle -p android-admin assembleRelease --no-daemon 2>&1 | tee /tmp/b.log || { grep -A6 "What went wrong" /tmp/b.log | head -12 | while IFS= read -r l; do echo "::error::$l"; done; exit 1; }
       - name: Rilis
         env: { GH_TOKEN: '${{ github.token }}' }
         run: |
